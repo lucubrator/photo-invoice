@@ -1,0 +1,34 @@
+
+services:
+  database:
+    image: postgres:17.2
+    container_name: photographydb_container
+    environment:
+      POSTGRES_DB: photographydb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret123
+    # Map the container's 5432 port to host's 15432
+    ports:
+      - "15432:5432"
+    volumes:
+      # Named volume to persist the DB data
+      - db_data:/var/lib/postgresql/data
+
+  backend:
+    # Build using the Dockerfile in ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: photography_backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      # These environment variables override any properties in application.properties
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/photographydb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: secret123
+
+volumes:
+  db_data:

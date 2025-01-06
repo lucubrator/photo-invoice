@@ -1,0 +1,127 @@
+@startuml
+class com.example.photoinvoice.backend.entities.Client {
+- Long id
+- String name
+- String contactPerson
+- String email
+- String phone
++ Long getId()
++ void setId(Long)
++ String getName()
++ void setName(String)
++ String getContactPerson()
++ void setContactPerson(String)
++ String getEmail()
++ void setEmail(String)
++ String getPhone()
++ void setPhone(String)
+}
+
+interface com.example.photoinvoice.backend.repositories.ClientRepository {
+}
+
+class com.example.photoinvoice.backend.services.JobService {
+- JobRepository jobRepository
+- ClientRepository clientRepository
++ List<Job> getAllJobs()
++ Job saveJob(Job)
+}
+
+class com.example.photoinvoice.backend.entities.Job {
+- Long id
+- Client client
+- String clientCompany
+- String contactPerson
+- String address
+- LocalDate bookingDate
+- LocalDate photographyDate
+- LocalDate deliveryDate
+- Integer numberOfPhotos
+- String editorNames
+- Integer numberOfEditedPhotos
+- Boolean isWeekendWork
+- Boolean isNightWork
+- Double carGasolineFee
+- Double extraFee
+- String status
++ Long getId()
++ void setId(Long)
++ Client getClient()
++ void setClient(Client)
++ String getClientCompany()
++ void setClientCompany(String)
++ String getContactPerson()
++ void setContactPerson(String)
++ String getAddress()
++ void setAddress(String)
++ LocalDate getBookingDate()
++ void setBookingDate(LocalDate)
++ LocalDate getPhotographyDate()
++ void setPhotographyDate(LocalDate)
++ LocalDate getDeliveryDate()
++ void setDeliveryDate(LocalDate)
++ Integer getNumberOfPhotos()
++ void setNumberOfPhotos(Integer)
++ String getEditorNames()
++ void setEditorNames(String)
++ Integer getNumberOfEditedPhotos()
++ void setNumberOfEditedPhotos(Integer)
++ Boolean getIsWeekendWork()
++ void setIsWeekendWork(Boolean)
++ Boolean getIsNightWork()
++ void setIsNightWork(Boolean)
++ Double getCarGasolineFee()
++ void setCarGasolineFee(Double)
++ Double getExtraFee()
++ void setExtraFee(Double)
++ String getStatus()
++ void setStatus(String)
+}
+
+enum com.example.photoinvoice.backend.entities.JobStatus {
++ BOOKED
++ PHOTOS_TAKEN
++ PARTIALLY_EDITED
++ FINISHED
++ CANCELED
+}
+
+interface com.example.photoinvoice.backend.repositories.JobRepository {
+}
+
+class com.example.photoinvoice.backend.controllers.JobController {
+- JobService jobService
++ List<Job> getAllJobs()
++ Job saveJob(Job)
+}
+
+class com.example.photoinvoice.backend.controllers.ClientController {
+- ClientService clientService
++ List<Client> getAllClients()
++ Client saveClient(Client)
+}
+
+class com.example.photoinvoice.backend.services.ClientService {
+- ClientRepository clientRepository
++ List<Client> getAllClients()
++ Client saveClient(Client)
+}
+
+class com.example.photoinvoice.backend.BackendApplication {
++ {static} void main(String[])
+}
+
+' Relationships
+' Relationships
+Job o-- Client : ManyToOne
+JobService --> JobRepository
+JobService --> ClientRepository
+JobController --> JobService
+ClientService --> ClientRepository
+ClientController --> ClientService
+Job *-- JobRepository
+Client *-- ClientRepository
+
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.photoinvoice.backend.repositories.ClientRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.photoinvoice.backend.repositories.JobRepository
+@enduml

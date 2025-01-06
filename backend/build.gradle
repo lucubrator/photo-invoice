@@ -1,0 +1,44 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.1'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example.photoinvoice'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+
+	maven { url "https://plugins.gradle.org/m2/" }
+	maven { url "https://repo.spring.io/plugins-release/" }
+}
+
+dependencies {
+	runtimeOnly 'org.postgresql:postgresql'
+
+	implementation 'jakarta.persistence:jakarta.persistence-api' // Jakarta Persistence API
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0' // OpenAPI/Swagger UI (springdoc-openapi)
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // Validation (for @Valid and related annotations)
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Web module for REST
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA for ORM
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc' // Add Spring Data JDBC <---- NOTE: REMOVED
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // For development convenience
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+if (hasProperty('buildScan')) {
+	// pass
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
