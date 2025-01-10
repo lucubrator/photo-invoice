@@ -1,9 +1,12 @@
 package com.example.photoinvoice.backend.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 //import jakarta.persistence.*;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -57,21 +60,20 @@ public class Job {
     private Boolean isNightWork;
 
     @Column(name = "car_fee")
-    private Double carFee;
+    private BigDecimal carFee;
 
-    @Column(name = "extra_fee")
-    private Double extraFee;
 
-    @Column(name = "status")
-    private String status; // Enum stored as a string
-
-    public enum JobStatus {
-        BOOKED,
-        PHOTOS_TAKEN,
-        PARTIALLY_EDITED,
-        FINISHED,
-        CANCELED
-    }
+//    @Column(name = "status")
+//    @Enumerated(EnumType.STRING)
+//    private String status; // Enum stored as a string
+//
+//    public enum JobStatus {
+//        BOOKED,
+//        PHOTOS_TAKEN,
+//        PARTIALLY_EDITED,
+//        FINISHED,
+//        CANCELED
+//    }
 
     // Getters and setters
 
@@ -169,14 +171,6 @@ public class Job {
 
     public void setCarFee(Double carFee) {
         this.carFee = carFee;
-    }
-
-    public Double getExtraFee() {
-        return extraFee;
-    }
-
-    public void setExtraFee(Double extraFee) {
-        this.extraFee = extraFee;
     }
 
     public String getStatus() {

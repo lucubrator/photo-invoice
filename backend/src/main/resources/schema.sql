@@ -19,7 +19,5 @@ CREATE TABLE jobs (
                      is_weekend_work BOOLEAN,
                      is_night_work BOOLEAN,
                      car_fee DECIMAL(10, 2),
-                     extra_fee DECIMAL(10, 2),
-                     status VARCHAR(255),
                      FOREIGN KEY (client_id) REFERENCES clients(id)
 );

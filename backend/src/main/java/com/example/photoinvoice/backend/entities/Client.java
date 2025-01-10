@@ -1,7 +1,5 @@
 package com.example.photoinvoice.backend.entities;
 
-import java.time.LocalDate;
-
 // import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
